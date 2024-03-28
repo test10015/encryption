@@ -3,7 +3,6 @@ package com.github.xzb617.encryption.autoconfigure.encryptor.symmetric;
 import com.github.xzb617.encryption.autoconfigure.constant.SymmetricConfigKey;
 import com.github.xzb617.encryption.autoconfigure.encryptor.AbstractArgumentEncryptor;
 import com.github.xzb617.encryption.autoconfigure.envirs.AlgorithmEnvironments;
-import com.github.xzb617.encryption.autoconfigure.envirs.impl.ConfigurableAlgorithmEnvironments;
 import com.github.xzb617.encryption.autoconfigure.envirs.RequestHeaders;
 import com.github.xzb617.encryption.autoconfigure.envirs.ResponseHeaders;
 import org.apache.commons.codec.binary.Base64;
@@ -65,7 +64,7 @@ public abstract class AbstractSymmetricArgumentEncryptor extends AbstractArgumen
     @Override
     protected String encryptInternal(String plainText, ResponseHeaders responseHeaders) throws Exception {
         byte[] encryptedBytes = this.encryptCipher.doFinal(plainText.getBytes(charset));
-        return Base64.encodeBase64URLSafeString(encryptedBytes);
+        return Base64.encodeBase64String(encryptedBytes);
     }
 
     @Override

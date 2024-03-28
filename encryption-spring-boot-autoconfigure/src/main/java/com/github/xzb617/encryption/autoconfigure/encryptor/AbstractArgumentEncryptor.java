@@ -1,7 +1,6 @@
 package com.github.xzb617.encryption.autoconfigure.encryptor;
 
 import com.github.xzb617.encryption.autoconfigure.envirs.AlgorithmEnvironments;
-import com.github.xzb617.encryption.autoconfigure.envirs.impl.ConfigurableAlgorithmEnvironments;
 import com.github.xzb617.encryption.autoconfigure.envirs.RequestHeaders;
 import com.github.xzb617.encryption.autoconfigure.envirs.ResponseHeaders;
 import com.github.xzb617.encryption.autoconfigure.exceptions.framework.IllegalAlgorithmConfigException;
@@ -130,7 +129,7 @@ public abstract class AbstractArgumentEncryptor implements ArgumentEncryptor {
         SecretKeySpec secretKeySpec = new SecretKeySpec(secret.getBytes(), alg);
         // 指定加密的算法、工作模式和填充方式
         Cipher cipher = Cipher.getInstance(padding, new BouncyCastleProvider());
-        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+        cipher.init(cipherMode, secretKeySpec);
         return cipher;
     }
 

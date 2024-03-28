@@ -2,6 +2,7 @@ package com.github.xzb617.encryption.autoconfigure.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.github.xzb617.encryption.autoconfigure.consoles.EncryptionContextInterceptor;
+import com.github.xzb617.encryption.autoconfigure.consoles.EncryptionHeaderInterceptor;
 import com.github.xzb617.encryption.autoconfigure.core.advice.rep.EncryptResponseBodyAdvice;
 import com.github.xzb617.encryption.autoconfigure.core.advice.req.DecryptRequestBodyAdvice;
 import com.github.xzb617.encryption.autoconfigure.core.resolver.DecryptHeaderHandlerMethodArgumentResolver;
@@ -17,10 +18,8 @@ import com.github.xzb617.encryption.autoconfigure.serializer.impl.FastjsonEncryp
 import com.github.xzb617.encryption.autoconfigure.serializer.impl.GsonEncryptionJsonSerializer;
 import com.github.xzb617.encryption.autoconfigure.serializer.impl.JacksonEncryptionJsonSerializer;
 import com.github.xzb617.encryption.autoconfigure.utils.HttpMessageConverterUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +42,7 @@ import java.util.List;
  */
 @Configuration
 @EnableConfigurationProperties({EncryptionProperties.class})
+@ConditionalOnProperty(prefix = "encryption", name = "enable", havingValue = "true")
 public class EncryptionArgumentResolversConfig implements WebMvcConfigurer {
 
     private final EncryptorProxyManager encryptorProxyManager;
@@ -63,6 +63,8 @@ public class EncryptionArgumentResolversConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new EncryptionHeaderInterceptor());
+
         if (configurator.getShowDetails()) {
             registry.addInterceptor(new EncryptionContextInterceptor(configurator));
         }

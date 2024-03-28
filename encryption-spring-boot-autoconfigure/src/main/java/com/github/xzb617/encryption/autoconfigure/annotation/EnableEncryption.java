@@ -1,5 +1,6 @@
 package com.github.xzb617.encryption.autoconfigure.annotation;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.github.xzb617.encryption.autoconfigure.config.EncryptionArgumentResolversConfig;
 import org.springframework.context.annotation.Import;
 
@@ -19,7 +20,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({TYPE})
 @Retention(RUNTIME)
 @Documented
-@Import(value = {EncryptionArgumentResolversConfig.class})
+@Import(value = {EncryptionArgumentResolversConfig.class, SpringUtil.class})
 public @interface EnableEncryption {
 
 }

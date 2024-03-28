@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.xzb617</groupId>
     <artifactId>encryption-spring-boot-starter</artifactId>
-    <version>1.0.1</version>
+    <version>2.0.0</version>
 
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.0.0.RELEASE</spring-boot.version>
-        <bcprov.version>1.66</bcprov.version>
+        <bcprov.version>1.77</bcprov.version>
         <crypteron.jce.version>2017.7.1.2</crypteron.jce.version>
         <commons.codec.version>1.10</commons.codec.version>
     </properties>
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.github.xzb617</groupId>
             <artifactId>encryption-spring-boot-autoconfigure</artifactId>
-            <version>1.0.1</version>
+            <version>2.0.0</version>
         </dependency>
 
         <!-- configuration-processor -->
@@ -40,7 +40,7 @@
         <!-- crypt -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15to18</artifactId>
+            <artifactId>bcprov-jdk18on</artifactId>
             <version>${bcprov.version}</version>
         </dependency>
         <dependency>

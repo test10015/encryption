@@ -14,6 +14,12 @@ public enum Algorithm {
     DES3("com.github.xzb617.encryption.autoconfigure.encryptor.symmetric.Des3ArgumentEncryptor"),
     /** IDEA */
     IDEA("com.github.xzb617.encryption.autoconfigure.encryptor.symmetric.IdeaArgumentEncryptor"),
+
+    /**
+     * SM2
+     */
+    SM2("com.github.xzb617.encryption.autoconfigure.encryptor.asymmetric.SM2AsymmetricArgumentEncryptor"),
+
     /** SM4 */
     SM4("com.github.xzb617.encryption.autoconfigure.encryptor.symmetric.Sm4ArgumentEncryptor"),
     /** RSA */
@@ -24,6 +30,8 @@ public enum Algorithm {
     RSA_WITH_DES3("com.github.xzb617.encryption.autoconfigure.encryptor.mixed.RsaWithDes3ArgumentEncryptor"),
     /** RSA_WITH_SM4 */
     RSA_WITH_SM4("com.github.xzb617.encryption.autoconfigure.encryptor.mixed.RsaWithSm4ArgumentEncryptor");
+
+
 
 
     private String value;

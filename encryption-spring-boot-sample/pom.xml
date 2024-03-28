@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.xzb617</groupId>
     <artifactId>encryption-spring-boot-sample</artifactId>
-    <version>1.0.1</version>
+    <version>2.0.0</version>
     <name>encryption-spring-boot-sample</name>
     <description>Demo project for Encryption</description>
 
@@ -54,7 +54,7 @@
         <dependency>
             <groupId>com.github.xzb617</groupId>
             <artifactId>encryption-spring-boot-starter</artifactId>
-            <version>1.0.1</version>
+            <version>2.0.0</version>
         </dependency>
 
         <dependency>
@@ -68,6 +68,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.76</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.hutool</groupId>-->
+<!--            <artifactId>hutool-all</artifactId>-->
+<!--            <version>5.8.26</version>-->
+<!--        </dependency>-->
+
     </dependencies>
 
     <dependencyManagement>

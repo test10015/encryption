@@ -13,6 +13,7 @@
 - 内置调试模式，可方便查看和调试加解密时的数据，可配置详细输出类目
 - 支持自定义参数加密器
 - 新增Mock功能，支持快速模拟请求数据进行测试
+- 支持Post JSON请求/响应体统一加密, Request Header增加(Encryption=true)
 
 #### 下个版本前瞻
 预计新增：
@@ -34,7 +35,7 @@
 <dependency>
     <groupId>com.github.xzb617</groupId>
     <artifactId>encryption-spring-boot-starter</artifactId>
-    <version>1.0.1</version>
+    <version>2.0.0</version>
 </dependency>
 ~~~
 
@@ -44,7 +45,7 @@
     <dependency>
         <groupId>com.github.xzb617</groupId>
         <artifactId>encryption-spring-boot-starter</artifactId>
-        <version>1.0.1</version>
+        <version>2.0.0</version>
     </dependency>
     ~~~
 
@@ -52,6 +53,7 @@
     ~~~yaml
     # 加密配置
     encryption:
+      enable: true
       charset: 'UTF-8'
       algorithm: rsa_with_aes
       # 不同算法模式有不同的配置项

@@ -1,9 +1,8 @@
 package com.github.xzb617.encyrption.sample.config;
 
+import com.github.xzb617.encryption.autoconfigure.annotation.EnableEncryption;
 import com.github.xzb617.encryption.autoconfigure.config.EncryptionConfigure;
 import com.github.xzb617.encryption.autoconfigure.envirs.Configurator;
-import com.github.xzb617.encryption.autoconfigure.envirs.Registry;
-import com.github.xzb617.encyrption.sample.encryptor.Rc4ArgumentEncryptor;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -12,14 +11,15 @@ import org.springframework.context.annotation.Configuration;
  * @date 2022/5/7 14:46
  * @description:
  */
-//@Configuration
+@Configuration
+@EnableEncryption
 public class EncryptionConfig extends EncryptionConfigure {
 
-    @Override
+    /*@Override
     public void configure(Registry registry) {
         // 注册自定义加密器
         registry.registerArgumentEncryptor(new Rc4ArgumentEncryptor());
-    }
+    }*/
 
     @Override
     public void configure(Configurator configurator) {

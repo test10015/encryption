@@ -16,10 +16,25 @@ import org.springframework.web.bind.annotation.*;
 public class BodyController {
 
     @PostMapping("/index")
-//    @EncryptBody(encryptFields = {"data"})
+    @EncryptBody(encryptFields = {"data"})
+//    @EncryptBody
     @ResponseBody
     public Result<Object> index(@DecryptBody @RequestBody ModelEntity modelEntity) {
         // 返回结果
+        return Result.success("操作成功", modelEntity);
+    }
+
+
+
+    @PostMapping("/noEncrypt")
+    @ResponseBody
+    public Result<Object> noEncrypt(@RequestBody ModelEntity modelEntity) {
+        return Result.success("操作成功", modelEntity);
+    }
+
+    @PostMapping("/encryptByHeader")
+    @ResponseBody
+    public Result<Object> encryptByHeader(@RequestBody ModelEntity modelEntity) {
         return Result.success("操作成功", modelEntity);
     }
 

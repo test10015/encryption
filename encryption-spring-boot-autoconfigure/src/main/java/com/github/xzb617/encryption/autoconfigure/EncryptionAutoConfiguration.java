@@ -4,9 +4,9 @@ import com.github.xzb617.encryption.autoconfigure.config.EncryptionArgumentResol
 import com.github.xzb617.encryption.autoconfigure.config.EncryptionConfigure;
 import com.github.xzb617.encryption.autoconfigure.constant.Orders;
 import com.github.xzb617.encryption.autoconfigure.encryptor.ArgumentEncryptor;
-import com.github.xzb617.encryption.autoconfigure.envirs.impl.ConfigurableAlgorithmEnvironments;
 import com.github.xzb617.encryption.autoconfigure.envirs.Configurator;
 import com.github.xzb617.encryption.autoconfigure.envirs.Registry;
+import com.github.xzb617.encryption.autoconfigure.envirs.impl.ConfigurableAlgorithmEnvironments;
 import com.github.xzb617.encryption.autoconfigure.exceptions.framework.InstanceBeanException;
 import com.github.xzb617.encryption.autoconfigure.factories.EncryptorFactory;
 import com.github.xzb617.encryption.autoconfigure.proxy.EncryptorProxyManager;
@@ -20,6 +20,7 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
+
 import java.lang.reflect.Constructor;
 
 /**

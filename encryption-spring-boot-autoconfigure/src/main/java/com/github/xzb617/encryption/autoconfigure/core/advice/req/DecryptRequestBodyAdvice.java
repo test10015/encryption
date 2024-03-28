@@ -5,6 +5,7 @@ import com.github.xzb617.encryption.autoconfigure.envirs.RequestHeaders;
 import com.github.xzb617.encryption.autoconfigure.exceptions.spring.HttpMessageDecryptException;
 import com.github.xzb617.encryption.autoconfigure.proxy.EncryptorProxyManager;
 import com.github.xzb617.encryption.autoconfigure.utils.IOUtil;
+import com.github.xzb617.encryption.autoconfigure.utils.RequestUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
@@ -28,6 +29,7 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
 
     protected final EncryptorProxyManager encryptorProxyManager;
 
+
     public DecryptRequestBodyAdvice(EncryptorProxyManager encryptorProxyManager) {
         this.encryptorProxyManager = encryptorProxyManager;
     }
@@ -35,13 +37,14 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
     @Override
     public boolean supports(MethodParameter methodParameter, Type type, Class<? extends HttpMessageConverter<?>> aClass) {
         // 当且仅当有 DecryptBody 注解时才解密请求体
-        return methodParameter.hasParameterAnnotation(DecryptBody.class);
+        return methodParameter.hasParameterAnnotation(DecryptBody.class) || RequestUtil.isEncryptionApi();
     }
 
     @Override
     public HttpInputMessage beforeBodyRead(HttpInputMessage httpInputMessage, MethodParameter methodParameter, Type type, Class<? extends HttpMessageConverter<?>> aClass) throws IOException {
+
         DecryptBody annotation = methodParameter.getParameterAnnotation(DecryptBody.class);
-        if (annotation != null) {
+        if (annotation != null || RequestUtil.isEncryptionApi()) {
             return new DecryptHttpInputMessage(httpInputMessage, methodParameter);
         }
         return httpInputMessage;

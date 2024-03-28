@@ -7,6 +7,7 @@ import com.github.xzb617.encryption.autoconfigure.exceptions.spring.HttpMessageE
 import com.github.xzb617.encryption.autoconfigure.proxy.EncryptorProxyManager;
 import com.github.xzb617.encryption.autoconfigure.serializer.EncryptionJsonSerializer;
 import com.github.xzb617.encryption.autoconfigure.utils.ReflectUtil;
+import com.github.xzb617.encryption.autoconfigure.utils.RequestUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.MediaType;
@@ -31,6 +32,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     protected final EncryptorProxyManager encryptorProxyManager;
     protected final EncryptionJsonSerializer jsonSerializer;
 
+
     public EncryptResponseBodyAdvice(EncryptorProxyManager encryptorProxyManager, EncryptionJsonSerializer jsonSerializer) {
         this.encryptorProxyManager = encryptorProxyManager;
         this.jsonSerializer = jsonSerializer;
@@ -38,7 +40,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        return methodParameter.hasMethodAnnotation(EncryptBody.class);
+        return methodParameter.hasMethodAnnotation(EncryptBody.class) || RequestUtil.isEncryptionApi();
     }
 
     /**
@@ -61,8 +63,14 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             String retModelName = originData.getClass().getName();
             // 判断是否只加密某个字段
             Method method = methodParameter.getMethod();
-            EncryptBody anno = AnnotationUtils.getAnnotation(method, EncryptBody.class);
-            String[] fields = anno.encryptFields();
+            String[] fields = null;
+            if (RequestUtil.isEncryptionApi()) {
+                fields = new String[]{"data"};
+            } else {
+                EncryptBody anno = AnnotationUtils.getAnnotation(method, EncryptBody.class);
+                fields = anno.encryptFields();
+            }
+
             if (fields.length > 0) {
                 for (String fieldName : fields) {
                     Object fieldValue = ReflectUtil.getFieldValue(fieldName, originData);

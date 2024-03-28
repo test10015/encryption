@@ -1,14 +1,14 @@
 package com.github.xzb617.encryption.autoconfigure.encryptor.mixed;
 
 import com.github.xzb617.encryption.autoconfigure.constant.AsymmetricConfigKey;
-import com.github.xzb617.encryption.autoconfigure.envirs.AlgorithmEnvironments;
-import com.github.xzb617.encryption.autoconfigure.mock.MockConstant;
 import com.github.xzb617.encryption.autoconfigure.constant.SymmetricConfigKey;
 import com.github.xzb617.encryption.autoconfigure.encryptor.AbstractArgumentEncryptor;
+import com.github.xzb617.encryption.autoconfigure.envirs.AlgorithmEnvironments;
 import com.github.xzb617.encryption.autoconfigure.envirs.RequestHeaders;
 import com.github.xzb617.encryption.autoconfigure.envirs.ResponseHeaders;
 import com.github.xzb617.encryption.autoconfigure.exceptions.spring.HttpMessageDecryptException;
 import com.github.xzb617.encryption.autoconfigure.factories.SecretFactory;
+import com.github.xzb617.encryption.autoconfigure.mock.MockConstant;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
@@ -70,7 +70,7 @@ public abstract class AbstractAsymmtricWithSymmetricArgumentEncryptor extends Ab
         Cipher cipher = this.createEncryptCipher(secret);
         byte[] encryptedBytes = cipher.doFinal(plainText.getBytes(charset));
         // 对加密后数据进行 Base64 编码
-        return Base64.encodeBase64URLSafeString(encryptedBytes);
+        return Base64.encodeBase64String(encryptedBytes);
     }
 
     @Override

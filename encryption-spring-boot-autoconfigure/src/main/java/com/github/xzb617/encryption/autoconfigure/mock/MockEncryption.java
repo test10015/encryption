@@ -3,6 +3,7 @@ package com.github.xzb617.encryption.autoconfigure.mock;
 import com.github.xzb617.encryption.autoconfigure.constant.Algorithm;
 import com.github.xzb617.encryption.autoconfigure.constant.SymmetricConfigKey;
 import com.github.xzb617.encryption.autoconfigure.encryptor.ArgumentEncryptor;
+import com.github.xzb617.encryption.autoconfigure.envirs.RequestHeaders;
 import com.github.xzb617.encryption.autoconfigure.envirs.ResponseHeaders;
 import com.github.xzb617.encryption.autoconfigure.envirs.impl.ConfigurableAlgorithmEnvironments;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -21,11 +22,13 @@ public class MockEncryption {
     private final ArgumentEncryptor argumentEncryptor;
     private final ConfigurableAlgorithmEnvironments configurableAlgorithmEnvironments;
     private final ResponseHeaders responseHeaders;
+    private final RequestHeaders requestHeaders;
 
     public MockEncryption(ArgumentEncryptor argumentEncryptor, ConfigurableEnvironment configurableEnvironment) {
         this.argumentEncryptor = argumentEncryptor;
         this.configurableAlgorithmEnvironments = new ConfigurableAlgorithmEnvironments(configurableEnvironment);
         this.responseHeaders = new ResponseHeaders(new HttpHeaders());
+        this.requestHeaders = new RequestHeaders(new HttpHeaders());
         this.argumentEncryptor.initConfig(this.configurableAlgorithmEnvironments);
     }
 
@@ -76,5 +79,9 @@ public class MockEncryption {
      */
     public String encryptValue(String var) {
         return this.argumentEncryptor.encrypt(var, responseHeaders);
+    }
+
+    public String decryptValue(String var) {
+        return this.argumentEncryptor.decrypt(var, requestHeaders);
     }
 }

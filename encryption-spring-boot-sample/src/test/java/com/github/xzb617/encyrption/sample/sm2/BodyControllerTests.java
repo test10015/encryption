@@ -1,11 +1,12 @@
-package com.github.xzb617.encyrption.sample.aes;
+package com.github.xzb617.encyrption.sample.sm2;
 
 import com.alibaba.fastjson.JSON;
 import com.github.xzb617.encryption.autoconfigure.constant.Algorithm;
-import com.github.xzb617.encryption.autoconfigure.encryptor.symmetric.AesArgumentEncryptor;
+import com.github.xzb617.encryption.autoconfigure.encryptor.asymmetric.SM2AsymmetricArgumentEncryptor;
 import com.github.xzb617.encryption.autoconfigure.mock.MockEncryption;
 import com.github.xzb617.encryption.autoconfigure.serializer.EncryptionJsonSerializer;
 import com.github.xzb617.encyrption.sample.dto.ModelEntity;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,15 +50,15 @@ public class BodyControllerTests {
     public void init() {
         // 实例化
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        this.mockEncryption = MockEncryption.configurableEnvironmentContextSetup(new AesArgumentEncryptor(), (ConfigurableEnvironment) webApplicationContext.getEnvironment());
+        this.mockEncryption = MockEncryption.configurableEnvironmentContextSetup(new SM2AsymmetricArgumentEncryptor(), (ConfigurableEnvironment) webApplicationContext.getEnvironment());
         // 判断是否为用例要求的算法
-        if (!Algorithm.AES.equals(this.mockEncryption.getAlgorithm())) {
-            throw new IllegalArgumentException("本测试用例要求采用算法模式为 AES，您尚未配置该算法");
+        if (!Algorithm.SM2.equals(this.mockEncryption.getAlgorithm())) {
+            throw new IllegalArgumentException("本测试用例要求采用算法模式为 sm2，您尚未配置该算法");
         }
     }
 
     @Test
-    public void mock() throws Exception {
+    public void sm2Test() throws Exception {
         // 生成加密后的值
         String jsonData = serializeModelEntity();
         String content  = mockEncryption.encryptValue(jsonData);
@@ -77,10 +78,7 @@ public class BodyControllerTests {
         MvcResult mvcResult = actions.andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print()).andReturn();
 
-        String data = JSON.parseObject(mvcResult.getResponse().getContentAsString()).getString("data");
-
-        System.out.println(mockEncryption.decryptValue(data));
-
+        Assert.assertEquals(jsonData, mockEncryption.decryptValue(JSON.parseObject(mvcResult.getResponse().getContentAsString()).getString("data")));
     }
 
 
